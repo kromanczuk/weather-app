@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
-def get_wether(cityName) -> None:
+def get_weather(cityName) -> None:
     url = "https://api.openweathermap.org/data/2.5/weather"
 
     print(city)
@@ -36,4 +36,4 @@ def get_city() -> str:
 
 if __name__ == "__main__":
     city = get_city()
-    get_wether(city)
+    get_weather(city)
