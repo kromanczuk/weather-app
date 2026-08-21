@@ -14,11 +14,14 @@ def get_wether(cityName) -> None:
         "appAPI": API_KEY,
         "units": "metric"
     }
-    print(params)
 
-    response = requests.get(url, params=params)
-
-    data = response.json()
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+    except requests.HTTPError as e:
+        print(f"Returned HTTP error: {e}")
+        return
 
     city_name = data["name"]
     temp = data["main"]["temp"]
