@@ -11,7 +11,7 @@ def get_weather(cityName) -> None:
     print(city)
     params = {
         "q": cityName,
-        "appAPI": API_KEY,
+        "APPID": API_KEY,
         "units": "metric"
     }
 
