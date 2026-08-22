@@ -1,10 +1,7 @@
 import requests
-import os
-import pandas as pd
-from dotenv import load_dotenv
+import streamlit as st
 
-load_dotenv()
-API_KEY = os.getenv("OPENWEATHER_API_KEY")
+API_KEY = st.secrets["OPENWEATHER_API_KEY"]
 
 def get_weather(cityName) -> None:
     url = "https://api.openweathermap.org/data/2.5/weather"
@@ -12,7 +9,7 @@ def get_weather(cityName) -> None:
     params = {
         "q": cityName,
         "APPID": API_KEY,
-        "units": "metric"
+        "units": "metric" 
     }
 
     try:
