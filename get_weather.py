@@ -1,5 +1,6 @@
 import requests
 import os
+import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,7 +9,6 @@ API_KEY = os.getenv("OPENWEATHER_API_KEY")
 def get_weather(cityName) -> None:
     url = "https://api.openweathermap.org/data/2.5/weather"
 
-    print(city)
     params = {
         "q": cityName,
         "APPID": API_KEY,
@@ -28,6 +28,31 @@ def get_weather(cityName) -> None:
     description = data["weather"][0]["description"]
     
     print(f"It is {temp}°C in {city_name} with {description}.")
+    return city_name, temp, description
+
+
+
+
+def get_one_day_timeline(cityName: str) -> list:
+    timelineUrl = "https://api.openweathermap.org/data/2.5/forecast"
+    params = {
+    "q": cityName,
+    "APPID": API_KEY,
+    "units": "metric"
+    }
+
+    try:
+        response = requests.get(timelineUrl, params=params)
+        response.raise_for_status()
+        data = response.json()
+    except requests.HTTPError as e:
+        print(f"Returned HTTP error: {e}")
+        return
+
+    return data['list']
+
+
+
 
 def get_city() -> str:
     city = input("Please provide a city name that you'd like to check: " )
